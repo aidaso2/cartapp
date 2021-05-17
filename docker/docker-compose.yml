@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  web:
+    build: .
+    volumes:
+      - ../:/var/www/html
+      - ./php:/usr/local/etc/php
+    ports:
+      - 8080:80
+    networks:
+      - cartapp
+    restart: always
+  db:
+    image: mysql
+    volumes:
+      - ./db_data:/bar/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: cartdb
+      MYSQL_USER: appadmin
+      MYSQL_PASSWORD: appadmin
+    networks:
+      - cartapp
+  phpmyadmin:
+    depends_on:
+      - db
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: admin123
+    restart: always
+    ports:
+      - 8081:80
+    networks:
+      - cartapp
+networks:
+  cartapp:
+volumes:
+  db_data:

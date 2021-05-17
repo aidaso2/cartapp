@@ -1,0 +1,16 @@
+{
+    "name": "aidas/cartapp",
+    "description": "Cart display app",
+    "type": "project",
+    "license": "#",
+    "minimum-stability": "stable",
+    "require": {
+      "ext-curl": "*",
+      "ext-json": "*"
+    },
+    "autoload": {
+      "psr-4": {
+        "CartApp\\": "src/"
+      }
+    }
+}
