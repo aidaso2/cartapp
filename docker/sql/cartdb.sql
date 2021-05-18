@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: May 16, 2021 at 03:23 PM
+-- Generation Time: May 18, 2021 at 08:57 PM
 -- Server version: 8.0.25
 -- PHP Version: 7.4.16
 
@@ -24,6 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `cart`
+--
+
+CREATE TABLE `cart` (
+  `row_id` int NOT NULL,
+  `id_product` int NOT NULL,
+  `amount` int NOT NULL,
+  `currency_id` int NOT NULL,
+  `ip` varchar(26) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `currencies`
 --
 
@@ -31,17 +45,18 @@ CREATE TABLE `currencies` (
   `id` int NOT NULL,
   `code` varchar(10) NOT NULL,
   `name` varchar(26) NOT NULL,
-  `exchange_rate_eur` decimal(10,0) NOT NULL
+  `exchange_rate_eur` decimal(10,2) NOT NULL,
+  `symbol` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Dumping data for table `currencies`
 --
 
-INSERT INTO `currencies` (`id`, `code`, `name`, `exchange_rate_eur`) VALUES
-(1, 'EUR', 'Euro', '1'),
-(2, 'USD', 'United States dollar', '1'),
-(3, 'GBP', 'Great Britain Pound', '1');
+INSERT INTO `currencies` (`id`, `code`, `name`, `exchange_rate_eur`, `symbol`) VALUES
+(1, 'EUR', 'Euro', '1.00', '€'),
+(2, 'USD', 'United States dollar', '1.14', '$'),
+(3, 'GBP', 'Great Britain Pound', '0.88', '£');
 
 -- --------------------------------------------------------
 
@@ -71,6 +86,12 @@ INSERT INTO `product` (`id`, `name`, `description`, `price_eur`, `image_url`) VA
 --
 
 --
+-- Indexes for table `cart`
+--
+ALTER TABLE `cart`
+  ADD PRIMARY KEY (`row_id`);
+
+--
 -- Indexes for table `currencies`
 --
 ALTER TABLE `currencies`
@@ -85,6 +106,12 @@ ALTER TABLE `product`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `cart`
+--
+ALTER TABLE `cart`
+  MODIFY `row_id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `currencies`

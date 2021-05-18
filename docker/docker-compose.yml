@@ -1,7 +1,7 @@
 version: "3.7"
 services:
   web:
-    build: .
+    build: ./dockerfiles/php
     volumes:
       - ../:/var/www/html
       - ./php:/usr/local/etc/php
@@ -12,8 +12,11 @@ services:
     restart: always
   db:
     image: mysql
+    # build: ./dockerfiles/sql
     volumes:
       - ./db_data:/bar/lib/mysql
+      - ./sql:/home
+      - ./sql/cartdb.sql:/docker-entrypoint-initdb.d/dump.sql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: admin123

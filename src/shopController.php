@@ -23,6 +23,18 @@ class shopController
         return $result;
     }
 
+    public function getCartProducts($ip) {
+        $conn = new \mysqli(self::SERVERNAME, self::USERNAME, self::PASSWORD, self::DBNAME);
+        $sql = "SELECT c.row_id row_id, p.id id, p.name name, p.description pdesc, p.price_eur price_eur, (p.price_eur * cur.exchange_rate_eur) price, p.image_url img, c.amount amount, cur.code currency, cur.symbol symbol FROM cart c ";
+        $sql .= "LEFT JOIN product p ON p.id = c.id_product ";
+        $sql .= "LEFT JOIN currencies cur ON cur.id = c.currency_id ";
+        $sql .= "WHERE c.ip = '$ip'";
+        $result = $conn->query($sql);
+        $conn->close();
+
+        return $result;
+    }
+
     public function getCurrencies() {
         $conn = new \mysqli(self::SERVERNAME, self::USERNAME, self::PASSWORD, self::DBNAME);
         $sql = "SELECT * FROM currencies";
@@ -55,6 +67,15 @@ class shopController
         }
 
         return false;
+    }
+
+    public function removeFromCart($id) {
+        $conn = new \mysqli(self::SERVERNAME, self::USERNAME, self::PASSWORD, self::DBNAME);
+        $sql = "DELETE FROM cart WHERE row_id = $id";
+        $result = $conn->query($sql);
+        $conn->close();
+
+        return $result;
     }
 
 }

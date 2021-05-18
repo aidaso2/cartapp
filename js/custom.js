@@ -17,3 +17,20 @@ function addToCart(ip, prod_id) {
 
     });
 }
+
+function removeFromCart(row_id) {
+    $.ajax({
+         type: "POST",
+         url: '../src/ajax.php',
+         data:{
+             action:'remove_from_cart',
+             id:row_id
+            },
+         success:function(html) {
+           alert(html);
+           location.reload();
+         }
+
+    });
+    // location.reload(); 
+}

@@ -14,6 +14,17 @@ if($_POST['action'] == 'add_to_cart') {
     $id = (int) $_POST['id'];
 
     $added = $sc->addToCart($id, $amount, $currency_id, $ip);
-    echo json_encode($added ? 'added' : 'failed to add'.' to cart');
+    echo json_encode($added ? 'Added' : 'Failed to add'.' to cart');
     exit;
 }
+
+if($_POST['action'] == 'remove_from_cart') {
+    $id = (int) $_POST['id'];
+
+    $added = $sc->removeFromCart($id);
+    echo json_encode($added ? 'Removed' : 'Failed to remove'.' from cart');
+    exit;
+}
+
+echo 'false';
+exit;
